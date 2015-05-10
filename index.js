@@ -4,25 +4,49 @@ var express = require("express")
 var app = express()
 var port = process.env.PORT || 5000
 
-app.use(express.static(__dirname + "/"))
+app.use(express.static(__dirname +  '/angular-frontend/app/'));
 
 var server = http.createServer(app)
 server.listen(port)
 
 console.log("http server listening on %d", port)
 
+
+var clients = [ ];
+
 var wss = new WebSocketServer({server: server})
 console.log("websocket server created")
 
 wss.on("connection", function(ws) {
-  var id = setInterval(function() {
-    ws.send(JSON.stringify(new Date()), function() {  })
-  }, 1000)
+  	clients.push(ws);
 
-  console.log("websocket connection open")
+	  // console.log("websocket connection open")
 
-  ws.on("close", function() {
-    console.log("websocket connection close")
-    clearInterval(id)
-  })
+	 ws.on("message", function(data) {
+	 	console.log(data);
+		for (var i = 0, len = clients.length; i < len; i++) {
+			clients[i].send(data);
+		}
+	 });
+
+	ws.on("close", function() {
+	  console.log("websocket connection close")
+	})
 })
+
+
+
+wss.on("data", function(client, str) {
+  var obj = JSON.parse(str);
+
+  if("id" in obj) {
+    // New client, add it to the id/client object
+    clients[obj.id] = client;
+  } else {
+    // Send data to the client requested
+    clients[obj.to].send(obj.data);
+  }
+});
+
+
+

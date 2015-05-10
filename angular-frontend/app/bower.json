@@ -1,0 +1,12 @@
+{
+  "name": "chat",
+  "version": "0.0.0",
+  "homepage": "https://github.com/PrezesHimself/node-ws-test",
+  "authors": [
+    "Mateusz Rorat <rorat@azimo.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular-websocket": "~1.0.9"
+  }
+}

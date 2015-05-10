@@ -19,16 +19,58 @@
 
     <script>
       var host = location.origin.replace(/^http/, 'ws')
-      var ws = new WebSocket(host);
-      ws.onmessage = function (event) {
-        var li = document.createElement('li');
-        li.innerHTML = JSON.parse(event.data);
-        document.querySelector('#pings').appendChild(li);
+      var websocket = new WebSocket(host);
+      console.log(websocket);
+
+      websocket.onopen = function() {
+        console.log('hello')
+        websocket.send("Hello");  // Sends a message.
       };
+
+      websocket.onmessage = function (evt) 
+      { 
+        var received_msg = evt.data;
+        // alert("Message is received...");
+        console.log(received_msg);
+      };
+
+      var test = function() {
+        console.log('test');
+        websocket.send('I am the client and I\'m listening!');
+
+
+      }
+      // websocket.onmessage = function(str) {
+      //   console.log("Someone sent: ", str);
+      // };
+
+      // // Tell the server this is client 1 (swap for client 2 of course)
+      // websocket.send(JSON.stringify({
+      //   id: "client1"
+      // }));
+
+      // // Tell the server we want to send something to the other client
+      // websocket.send(JSON.stringify({
+      //   to: "client2",
+      //   data: "foo"
+      // }));
+      // console.log(websocket);
+
+
+      // websocket.on('open', function open() {
+      //   var array = new Float32Array(5);
+
+      //   for (var i = 0; i < array.length; ++i) {
+      //     array[i] = i / 2;
+      //   }
+
+      //   websocket.send(array, { binary: true, mask: true });
+      // });
     </script>
   </head>
   <body>
-    <h1>Pings</h1>
-    <ul id='pings'></ul>
+    <input type="text" id="msg" value="test">
+    <input type="button" id="send" value="send" onclick="test()">
+    <ul id="pings"></ul>
   </body>
 </html>
