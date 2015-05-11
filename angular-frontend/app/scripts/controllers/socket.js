@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('chatApp')
-.controller('SocketCtrl', function ($log, $scope, $rootScope, nickName, chatSocket, messageFormatter) {
+.controller('SocketCtrl', function ($log, $scope, $rootScope, nickName, chatSocket,  messageFormatter) {
   $scope.nickName = 'nickName';
+  $scope.usedNicks = [];
   var nickname = 'nickName';
   $scope.howManyDice = '1';
   $scope.dice = '10';
@@ -18,6 +19,10 @@ angular.module('chatApp')
     equasion += ' = '+ '' + dice + ''
     chatSocket.send(messageFormatter(new Date(),nickName,'dice '+$scope.howManyDice+'k'+$scope.dice + "   " + equasion));
   }
+  $scope.changeNick = function(name) {
+    $scope.nickName = name;
+    nickName = name;
+  }
   $scope.sendMessage = function() {
     var match = $scope.message.match('^\/nick (.*)');
 
@@ -29,6 +34,7 @@ angular.module('chatApp')
                       nickName, 'nick changed - from ' + 
                         oldNick + ' to ' + nickName + '!') + $scope.messageLog;
       $scope.nickName = nickName;
+      $scope.usedNicks = $scope.usedNicks.concat(nickName);
     }
 
     $log.debug('sending message', $scope.message);
@@ -37,9 +43,8 @@ angular.module('chatApp')
   };
 
   $rootScope.$on('myEvent', function(event, data) {
-    console.log('test');
-    $log.debug('got a message', event.name);
-    $log.debug('got a message', data);
+    // $log.debug('got a message', event.name);
+    // $log.debug('got a message', data);
     // if (!data.payload) {
     //   $log.error('invalid message', 'event', event, 'data', JSON.stringify(data));
     //   return;

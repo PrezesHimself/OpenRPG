@@ -10,7 +10,7 @@
                 $scope.$watch('messageLog', function() {
                   var textArea = $element[0].children[0];
                   textArea.scrollTop = textArea.scrollHeight;
-                });
+                }, true);
             }
         };
     });

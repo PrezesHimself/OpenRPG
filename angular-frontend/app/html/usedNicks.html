@@ -1,0 +1,9 @@
+<div>
+	<h2>Nicks</h2>
+	<div>
+        <button 
+		data-value="{{ nick }}"
+        data-ng-repeat="nick in usedNicks" ng-click="changeNick(nick)">{{nick}}</button>
+        <span ng-if="!usedNicks.length">No nicks used so far</span>
+    </div>
+</div>

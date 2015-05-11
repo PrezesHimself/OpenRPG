@@ -5,6 +5,7 @@ angular
     'ngCookies',
     'ngResource',
     'ngSanitize',
-    'ngWebSocket'
+    'ngWebSocket',	
+    // 'usedNicks'
   ])
-  .value('nickName', 'anonymous')
+  .value('nickName', 'anonymous', [])

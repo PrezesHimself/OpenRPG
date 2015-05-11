@@ -32,13 +32,14 @@ wss.on("connection", function(ws) {
             	catch(e)
 			      {
 			          console.log("completeConnection error", e);
+			          console.log(clients.length)
 			          // Additional cleanup required?
 			      }
 		}
 	 });
 
 	ws.on("close", function() {
-	  clients.splice(id, 1);
+	  clients.splice(clients.indexOf(ws), 1);
 	  console.log("websocket connection close")
 	})
 })
