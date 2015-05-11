@@ -19,22 +19,39 @@ angular.module('chatApp')
     equasion += ' = '+ '' + dice + ''
     chatSocket.send(messageFormatter(new Date(),nickName,'dice '+$scope.howManyDice+'k'+$scope.dice + "   " + equasion));
   }
+  $scope.generateNickname = function() {
+    var newName;
+
+    var shuffle = function (o){
+        for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    };
+
+    var prefix = [ 'podejrzanie', 'bardzo', 'wyjątkowo', 'nieznośnie', 'okrutnie' ]
+    var adjectives = ['majestatyczny', "groźny", "wąski", "kaprawy", "kulawy", "jedooki", "rudy", "wąsaty", "śmierdzący", "waleczny", "praworządny", "złośliwy" ]
+    var names = [ "kalafior", 'brokuł' ]
+
+    newName = shuffle(prefix)[0] + " " + shuffle(adjectives)[0] + " " + shuffle(names)[0]
+
+    $scope.changeNick(newName);
+  }
   $scope.changeNick = function(name) {
     $scope.nickName = name;
     nickName = name;
+    if($scope.usedNicks.indexOf(nickName) === -1){ 
+      $scope.usedNicks = $scope.usedNicks.concat(nickName);
+    }
   }
   $scope.sendMessage = function() {
     var match = $scope.message.match('^\/nick (.*)');
 
     if (angular.isDefined(match) && angular.isArray(match) && match.length === 2) {
       var oldNick = nickName;
-      nickName = match[1];
+      $scope.changeNick(match[0]);
       $scope.message = '';
       $scope.messageLog = messageFormatter(new Date(), 
                       nickName, 'nick changed - from ' + 
                         oldNick + ' to ' + nickName + '!') + $scope.messageLog;
-      $scope.nickName = nickName;
-      $scope.usedNicks = $scope.usedNicks.concat(nickName);
     }
 
     $log.debug('sending message', $scope.message);
