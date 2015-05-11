@@ -19,16 +19,28 @@ angular.module('chatApp')
     equasion += ' = '+ '' + dice + ''
     chatSocket.send(messageFormatter(new Date(),nickName,'dice '+$scope.howManyDice+'k'+$scope.dice + "   " + equasion));
   }
+  var shuffle = function (o){
+      for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+      return o;
+  };
+  $scope.generateDemonicNickname = function() {
+    var newName = "",
+        words = 0,
+        maxWords = 8,
+        sylabes = ["dah","'ni","vahha","rouk","kresh","fus"];
+
+    do {
+      words++;
+      newName+=Math.round(Math.random()*10) > 4 ? shuffle(sylabes)[0] : " ";
+    } while (Math.round(Math.random()*10) && words < maxWords)
+
+    $scope.changeNick(newName);
+  }
   $scope.generateNickname = function() {
     var newName;
 
-    var shuffle = function (o){
-        for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-        return o;
-    };
-
     var prefix = [ 'podejrzanie', 'bardzo', 'wyjątkowo', 'nieznośnie', 'okrutnie' ]
-    var adjectives = ['majestatyczny', "groźny", "wąski", "kaprawy", "kulawy", "jedooki", "rudy", "wąsaty", "śmierdzący", "waleczny", "praworządny", "złośliwy" ]
+    var adjectives = ['parszywy', "groźny", "wąski", "kaprawy", "kulawy", "jedooki", "rudy", "wąsaty", "śmierdzący", "waleczny", "praworządny", "złośliwy" ]
     var names = [ "kalafior", 'brokuł' ]
 
     newName = shuffle(prefix)[0] + " " + shuffle(adjectives)[0] + " " + shuffle(names)[0]
