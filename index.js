@@ -18,18 +18,24 @@ var wss = new WebSocketServer({server: server})
 console.log("websocket server created")
 
 wss.on("connection", function(ws) {
-  	clients.push(ws);
-
+  	var id = clients.push(ws);
+  	console.log(id)
 	  // console.log("websocket connection open")
 
 	 ws.on("message", function(data) {
 	 	console.log(data);
 		for (var i = 0, len = clients.length; i < len; i++) {
-			clients[i].send(data);
+			if(clients[i].readyState){
+                console.error('Client state is ' + clients[i].readyState);
+            }
+            else{
+                clients[i].send(data);
+            }
 		}
 	 });
 
 	ws.on("close", function() {
+	  clients.splice(id, 1);
 	  console.log("websocket connection close")
 	})
 })
