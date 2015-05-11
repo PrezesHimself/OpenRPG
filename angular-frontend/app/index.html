@@ -21,17 +21,10 @@
 <body ng-app="chatApp">
   <div class='container'>
     <div ng-controller='SocketCtrl'>
-      change nick <code>/nick [yourNewNick]</code>
-      <div class='row'>
-        <div class='col-md-9'>
-          <chat-box></chat-box>
-        </div>
-      </div>
-      <div class='row'>
-        &nbsp;
-      </div>
       <div class='row'>
         <div class='col-md-8'>
+        <h2>change nick</h2> <code>/nick [yourNewNick]</code>
+          <chat-box></chat-box>
           <form role='form' novalidate name='form'>
             <div class='form-group'>
               <p>{{nickName}} said:</p>
@@ -53,34 +46,37 @@
                 ng-enable='form.$valid'
                 ng-click="throwDice()">Throw dice!</button>
               </p>
-              <used-nicks></used-nicks>
             </div>
           </form>
         </div>
+        <div class='col-md-4'>
+          <used-nicks></used-nicks>
+        </div>
+        
       </div>
     </div>
   </div>
-  <hr/>
-  <!-- bower:js -->
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/es5-shim/es5-shim.js"></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/json3/lib/json3.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="https://rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.js"></script>
-  <!-- endbower -->
-  <!-- endbuild -->
-  <!-- build:js({.tmp,app}) scripts/scripts.js -->
-  <script src="scripts/app.js"></script>
-  <script src="scripts/controllers/socket.js"></script>
-  <script src="scripts/services/socket.js"></script>
-  <script src="scripts/services/messageformatter.js"></script>
-  <script src="scripts/directives/chatbox.js"></script>
-  <script src="scripts/directives/usedNicks.js"></script>
-  <!-- endbuild -->
+</div>
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="https://rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/socket.js"></script>
+<script src="scripts/services/socket.js"></script>
+<script src="scripts/services/messageformatter.js"></script>
+<script src="scripts/directives/chatbox.js"></script>
+<script src="scripts/directives/usedNicks.js"></script>
+<!-- endbuild -->
 </body>
 </html>
