@@ -25,12 +25,15 @@ wss.on("connection", function(ws) {
 	 ws.on("message", function(data) {
 	 	console.log(data);
 		for (var i = 0, len = clients.length; i < len; i++) {
-			if(clients[i].readyState){
-                console.error('Client state is ' + clients[i].readyState);
-            }
-            else{
+			try
+      			{
                 clients[i].send(data);
-            }
+            	}
+            	catch(e)
+			      {
+			          console.log("completeConnection error", e);
+			          // Additional cleanup required?
+			      }
 		}
 	 });
 
