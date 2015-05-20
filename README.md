@@ -1,6 +1,6 @@
 # Node.js Websocket Test
 
-A tiny demo using the [einaros/ws](http://einaros.github.io/ws/) WebSockets implementation.
+Websocket + Angular implementation 
 
 # Running Locally
 
@@ -16,3 +16,7 @@ heroku create
 git push heroku master
 heroku open
 ```
+
+#Live demo 
+
+https://intense-castle-6637.herokuapp.com
